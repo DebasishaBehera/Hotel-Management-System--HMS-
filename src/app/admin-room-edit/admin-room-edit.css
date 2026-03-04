@@ -1,0 +1,141 @@
+.admin-container {
+  max-width: 1000px;
+  margin: 4rem auto 6rem;
+  padding: 2.25rem 2.5rem 2.5rem;
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.98), rgba(232, 244, 255, 0.9));
+  border-radius: 18px;
+  box-shadow: 0 26px 70px rgba(15, 76, 129, 0.16);
+}
+
+.admin-container h2 {
+  margin-bottom: 0.4rem;
+  text-align: center;
+  font-size: 2rem;
+  letter-spacing: 0.03em;
+  color: #003566;
+}
+
+.subtitle {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #4b5563;
+  font-size: 0.95rem;
+}
+
+.room-form .form-row,
+.room-form .form-row-inline {
+  margin-bottom: 0.8rem;
+  position: relative;
+}
+
+.room-form label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.room-form input,
+.room-form textarea,
+.form-row-inline input {
+  width: 100%;
+  padding: 0.5rem 0.65rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5f5;
+  font-size: 0.9rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.room-form select {
+  width: 100%;
+  padding: 0.5rem 0.65rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5f5;
+  font-size: 0.9rem;
+  background-color: #f9fbff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.room-form input:focus,
+.room-form textarea:focus,
+.form-row-inline input:focus,
+.room-form select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.16);
+}
+
+.room-form .form-row::before,
+.room-form .form-row-inline::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, transparent, transparent);
+  transition: background 0.18s ease, opacity 0.18s ease;
+  opacity: 0;
+}
+
+.room-form .form-row:focus-within::before,
+.room-form .form-row-inline:focus-within::before {
+  background: linear-gradient(180deg, #3b82f6, #38bdf8);
+  opacity: 1;
+}
+
+.room-form .form-row:focus-within label,
+.room-form .form-row-inline:focus-within label {
+  color: #0f52ba;
+}
+
+.form-row-inline {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.form-row-inline > div {
+  flex: 1;
+}
+
+.actions {
+  margin-top: 0.75rem;
+  display: flex;
+  gap: 0.6rem;
+}
+
+.actions button {
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  background: linear-gradient(135deg, #007bff, #00c2ff);
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.35);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+
+.actions .secondary {
+  background: #6c757d;
+}
+
+.actions button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.02);
+  box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
+}
+
+.msg {
+  color: #0a7b25;
+  margin-top: 10px;
+}
+
+.error {
+  color: #d32f2f;
+  margin-top: 10px;
+}
+
+.info {
+  color: #555;
+}

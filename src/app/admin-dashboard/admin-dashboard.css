@@ -1,0 +1,99 @@
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.dashboard-card {
+  position: relative;
+  background: radial-gradient(circle at top left, #ffffff 0%, #f7fbff 45%, #eef4ff 100%);
+  border-radius: 16px;
+  padding: 24px 28px;
+  box-shadow: 0 18px 45px rgba(15, 76, 129, 0.12);
+  cursor: pointer;
+  overflow: hidden;
+  border: 1px solid rgba(0, 123, 255, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.dashboard-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(29, 32, 35, 0.12), rgba(69, 96, 103, 0.04));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 55px rgba(15, 76, 129, 0.18);
+  border-color: rgba(0, 123, 255, 0.35);
+}
+
+.dashboard-card:hover::before {
+  opacity: 1;
+}
+
+.dashboard-card h3 {
+  position: relative;
+  margin: 0 0 10px;
+  font-size: 1.15rem;
+  color: #014f86;
+}
+
+.dashboard-card p {
+  position: relative;
+  margin: 0;
+  color: #4b5563;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.admin-container {
+  max-width: 1100px;
+  margin: 3rem auto 26rem;
+  padding: 2.5rem 2.75rem 2.75rem;
+  background: radial-gradient(circle at top left, rgba(163, 161, 161, 0.98), rgba(216, 218, 219, 0.9));
+  border-radius: 18px;
+  box-shadow: 0 28px 70px rgba(15, 76, 129, 0.16);
+}
+
+.admin-container h2 {
+  margin-top: 0;
+  margin-bottom: 0.35rem;
+  text-align: center;
+  font-size: 2rem;
+  letter-spacing: 0.03em;
+  color: #003566;
+}
+
+.subtitle {
+  text-align: center;
+  margin: 0 auto 2rem;
+  max-width: 520px;
+  color: #4b5563;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid {
+    margin-top: 24px;
+    gap: 16px;
+  }
+
+  .dashboard-card {
+    padding: 18px 20px;
+  }
+
+  .admin-container {
+    margin: 2.25rem 1rem 2rem;
+    padding: 1.75rem 1.5rem 2rem;
+  }
+
+  .admin-container h2 {
+    font-size: 1.6rem;
+  }
+}

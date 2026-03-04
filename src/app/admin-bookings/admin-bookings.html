@@ -1,0 +1,43 @@
+<div class="admin-container" style="max-width: 1200px">
+  <h2>Room Bookings</h2>
+  <p class="subtitle">See all booking records and cancel if needed.</p>
+
+  <div class="panels">
+    <section class="panel">
+
+      <div *ngIf="loadingBookings" class="info">Loading bookings...</div>
+
+      <table class="data-table" *ngIf="!loadingBookings && bookings.length">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Room</th>
+            <th>User</th>
+            <th>Check-in</th>
+            <th>Check-out</th>
+            <th>Guests</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let booking of bookings">
+            <td>{{ booking.id }}</td>
+            <td>{{ booking.room?.name || booking.roomName || ('Room #' + booking.roomId) }}</td>
+            <td>{{ booking.user?.name || booking.customerName || booking.userEmail || booking.email || 'N/A' }}</td>
+            <td>{{ booking.checkInDate | date:'mediumDate' }}</td>
+            <td>{{ booking.checkOutDate | date:'mediumDate' }}</td>
+            <td>{{ booking.guests }}</td>
+            <td>
+              <button class="danger" (click)="deleteBooking(booking.id)">Cancel</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="!loadingBookings && !bookings.length" class="info">No bookings found.</div>
+    </section>
+  </div>
+
+  <p class="msg" *ngIf="message">{{ message }}</p>
+  <p class="error" *ngIf="error">{{ error }}</p>
+</div>

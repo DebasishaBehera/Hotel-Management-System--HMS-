@@ -19,7 +19,7 @@ export class LoginComponent {
   constructor(private auth: AuthService, private router: Router) {}
 
   onLogin() {
-    this.auth.login({ email: this.email, password: this.password }).subscribe({
+    this.auth.login({ email: this.email, password: this.password, role: 'USER' }).subscribe({
       next: () => {
         this.message = 'Login successful!';
         this.router.navigate(['/home']);

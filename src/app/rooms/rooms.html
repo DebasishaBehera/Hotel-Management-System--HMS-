@@ -1,15 +1,31 @@
 <div class="rooms-container">
   <h2>Available Rooms</h2>
 
+  <div class="filter-bar">
+    <div class="filter-field">
+      <label>Check-in</label>
+      <input type="date" [(ngModel)]="checkInDate" />
+    </div>
+    <div class="filter-field">
+      <label>Check-out</label>
+      <input type="date" [(ngModel)]="checkOutDate" />
+    </div>
+    <div class="filter-actions">
+      <button type="button" (click)="findRooms()">Find Rooms</button>
+      <button type="button" class="secondary" (click)="clearFilter()" *ngIf="checkInDate || checkOutDate">Clear</button>
+    </div>
+  </div>
+
   <div *ngIf="loading" class="loading">Loading rooms...</div>
   <div *ngIf="error" class="error">{{ error }}</div>
 
   <div class="room-grid" *ngIf="!loading && rooms.length > 0">
     <div class="room-card" *ngFor="let room of rooms">
-      <img [src]="room.imageUrl || 'assets/default-room.jpg'" alt="Room image" />
-      <h3>{{ room.name }}</h3>
-      <p>{{ room.description }}</p>
-      <div class="price">₹{{ room.pricePerNight }} / night</div>
+      <img [src]="room.imageUrl || room.image_url || 'assets/default-room.jpg'" alt="Room image" />
+      <h3>{{ room.name || room.type || ('Room ' + room.room_number) }}</h3>
+      <p style="text-align: justify;">{{ room.description || ('Room number ' + room.room_number) }}</p>
+      <p class="room-type" style="min-height: 0px" *ngIf="room.type">{{ room.type }} ROOM</p>
+      <div class="price">₹{{ room.pricePerNight || room.price }} / night</div>
       <!-- <button class="book-btn">Book Now</button> -->
        <button class="book-btn" [routerLink]="['/rooms', room.id]">Book Now</button>
 

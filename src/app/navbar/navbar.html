@@ -8,9 +8,13 @@
             <li><a routerLink="/" routerLinkActive="active" (click)="isMenuOpen=false">Home</a></li>
             <li><a routerLink="/rooms" routerLinkActive="active" (click)="isMenuOpen=false">Rooms</a></li>
             <li><a routerLink="/about" routerLinkActive="active" (click)="isMenuOpen=false">About</a></li>
-            <li><a routerLink="/contact" routerLinkActive="active" (click)="isMenuOpen=false">Contact</a></li>
-            <li><a routerLink="/login" routerLinkActive="active" class="login-btn">Login</a></li>
-            <li><a routerLink="/signup" routerLinkActive="active" class="login-btn">Signup</a></li>
+            <li *ngIf="!isAdmin()"><a routerLink="/contact" routerLinkActive="active" (click)="isMenuOpen=false">Contact</a></li>
+            <!-- Admin links: first go to admin login, then to admin panel when logged in as admin -->
+            <li *ngIf="!isAdmin()"><a routerLink="/admin-login" routerLinkActive="active" (click)="isMenuOpen=false">Admin</a></li>
+            <li *ngIf="isAdmin()"><a routerLink="/admin" routerLinkActive="active" (click)="isMenuOpen=false">Admin Panel</a></li>
+            <li *ngIf="!isLoggedIn()"><a routerLink="/login" routerLinkActive="active" class="login-btn" (click)="isMenuOpen=false">Login</a></li>
+            <li *ngIf="!isLoggedIn()"><a routerLink="/signup" routerLinkActive="active" class="login-btn" (click)="isMenuOpen=false">Signup</a></li>
+            <li *ngIf="isLoggedIn()"><a (click)="logout()" class="login-btn">Logout</a></li>
 
         </ul>
     </div>

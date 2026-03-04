@@ -9,24 +9,57 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(credentials: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
+    // Call backend auth API and persist token + role
+    return this.http.post<any>(`${this.apiUrl}/login`, credentials).pipe(
+      tap((res: any) => {
+        // Persist basic identity info for later (e.g., bookings)
+        if (credentials?.email) {
+          localStorage.setItem('email', credentials.email);
+        }
+        if (res.token) {
+          localStorage.setItem('token', res.token);
+        }
+        if (res.role) {
+          localStorage.setItem('role', res.role);
+        }
+      })
+    );
+  }
+
+  adminLogin(credentials: any): Observable<any> {
+    // Separate endpoint for admin login
+    return this.http.post<any>(`${this.apiUrl}/admin-login`, credentials).pipe(
       tap((res: any) => {
         if (res.token) {
-          localStorage.setItem('jwtToken', res.token);
+          localStorage.setItem('token', res.token);
+        }
+        if (res.role) {
+          localStorage.setItem('role', res.role);
         }
       })
     );
   }
 
   signup(user: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/signup`, user);
+    return this.http.post(`${this.apiUrl}/signup`, user).pipe(
+      tap(() => {
+        if (user?.email) {
+          localStorage.setItem('email', user.email);
+        }
+      })
+    );
   }
 
   logout() {
-    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('jwtToken');
+    return !!localStorage.getItem('token');
+  }
+
+  isAdmin(): boolean {
+    return localStorage.getItem('role') === 'ADMIN';
   }
 }

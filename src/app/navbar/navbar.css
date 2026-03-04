@@ -3,8 +3,10 @@
   color: white;
   padding: 18px 20px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
 }
 
@@ -47,6 +49,7 @@
   padding: 6px 15px;
   border-radius: 20px;
   transition: 0.3s;
+  cursor: pointer;
 }
 
 .login-btn:hover {

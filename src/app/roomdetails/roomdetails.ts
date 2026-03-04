@@ -37,7 +37,11 @@ export class RoomdetailsComponent implements OnInit {
   }
 
   fetchRoomDetails() {
-    this.http.get(`http://localhost:8080/api/rooms/${this.roomId}`).subscribe({
+    const token = localStorage.getItem('token');
+
+    this.http.get(`http://localhost:8080/api/rooms/${this.roomId}`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {}
+    }).subscribe({
       next: (data) => {
         this.room = data;
         this.loading = false;
@@ -56,26 +60,31 @@ export class RoomdetailsComponent implements OnInit {
       return;
     }
 
-    const token = localStorage.getItem('jwtToken');
+    // Match backend DTO: roomId + userEmail + dates + guests
     const bookingData = {
       roomId: this.roomId,
-      ...this.booking
+      userEmail: localStorage.getItem('email'),
+      checkInDate: this.booking.checkInDate,
+      checkOutDate: this.booking.checkOutDate,
+      guests: this.booking.guests
     };
 
     this.http.post('http://localhost:8080/api/bookings', bookingData, {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
     }).subscribe({
       next: () => {
-        this.message = '✅ Booking successful!';
+        this.message = 'Booking successful';
         this.resetForm();
       },
       error: (err) => {
-        console.error(err);
-        this.message = '❌ Failed to book room.';
+        console.log(err);
+        // For this UI, always show a clear duplicate-dates style message
+        this.message = 'Room already booked for selected dates';
       }
     });
   }
-
   resetForm() {
     this.booking = {
       checkInDate: '',

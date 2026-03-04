@@ -1,0 +1,31 @@
+<div class="auth-page">
+  <div class="auth-container">
+    <h2>Admin Login</h2>
+
+    <form (ngSubmit)="onLogin()">
+      <input
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        placeholder="Admin Email"
+        required
+      />
+
+      <input
+        type="password"
+        [(ngModel)]="password"
+        name="password"
+        placeholder="Password"
+        required
+      />
+
+      <button type="submit">Login as Admin</button>
+    </form>
+
+    <p class="msg" *ngIf="message">{{ message }}</p>
+
+    <p>
+      Not an admin? <a class="link" routerLink="/login">Login as Guest</a>
+    </p>
+  </div>
+</div>

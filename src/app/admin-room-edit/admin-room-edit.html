@@ -1,0 +1,54 @@
+<div class="admin-container">
+  <h2>Edit Room</h2>
+  <p class="subtitle">Update the details for this room.</p>
+
+  <form (ngSubmit)="updateRoom()" class="room-form" *ngIf="!loading; else loadingTpl">
+    <div class="form-row">
+      <label>Name</label>
+      <input type="text" [(ngModel)]="form.name" name="name" required />
+    </div>
+
+    <div class="form-row">
+      <label>Description</label>
+      <textarea [(ngModel)]="form.description" name="description" rows="2"></textarea>
+    </div>
+
+    <div class="form-row-inline">
+      <div>
+        <label>Price / Night</label>
+        <input type="number" [(ngModel)]="form.pricePerNight" name="pricePerNight" min="0" required />
+      </div>
+      <div>
+        <label>Capacity</label>
+        <input type="number" [(ngModel)]="form.capacity" name="capacity" min="1" required />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label>Room Type</label>
+      <select [(ngModel)]="form.type" name="type" required>
+        <option value="SINGLE">Single</option>
+        <option value="DOUBLE">Double</option>
+        <option value="KING">King</option>
+        <option value="SUITE">Suite</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label>Image URL</label>
+      <input type="text" [(ngModel)]="form.imageUrl" name="imageUrl" />
+    </div>
+
+    <div class="actions">
+      <button type="submit">Update Room</button>
+      <button type="button" class="secondary" (click)="goBack()">Cancel</button>
+    </div>
+  </form>
+
+  <ng-template #loadingTpl>
+    <p class="info">Loading room...</p>
+  </ng-template>
+
+  <p class="msg" *ngIf="message">{{ message }}</p>
+  <p class="error" *ngIf="error">{{ error }}</p>
+</div>

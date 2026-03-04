@@ -5,7 +5,7 @@
 
   <div class="room-info">
     <h2>{{ room.name }}</h2>
-    <p>{{ room.description }}</p>
+    <p style="text-align: justify;">{{ room.description }}</p>
     <p><strong>Price:</strong> ₹{{ room.pricePerNight }} / night</p>
     <p><strong>Capacity:</strong> {{ room.capacity }} guests</p>
   </div>
@@ -25,7 +25,9 @@
       <button type="submit">Confirm Booking</button>
     </form>
 
-    <p class="msg">{{ message }}</p>
+    <p class="msg" [style.color]="message === 'Booking successful' ? 'green' : 'red'">
+      {{ message }}
+    </p>
   </div>
 </div>
 

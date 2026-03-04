@@ -1,0 +1,21 @@
+<div class="admin-container">
+  <h2>Admin Panel</h2>
+  <p class="subtitle">Manage rooms and bookings for Grand Paradise Hotel.</p>
+
+  <div class="dashboard-grid">
+    <div class="dashboard-card" [routerLink]="['/admin/new-room']">
+      <h3>List New Room</h3>
+      <p>Create a new room and set price, capacity and image.</p>
+    </div>
+
+    <div class="dashboard-card" [routerLink]="['/admin/bookings']">
+      <h3>Room Bookings</h3>
+      <p>See all bookings, check dates and cancel reservations.</p>
+    </div>
+
+    <div class="dashboard-card" [routerLink]="['/admin/rooms']">
+      <h3>View All Rooms</h3>
+      <p>View, edit or delete existing rooms in the system.</p>
+    </div>
+  </div>
+</div>

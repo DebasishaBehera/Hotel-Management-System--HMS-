@@ -1,0 +1,32 @@
+<div class="admin-container" style="max-width: 1400px">
+  <h2>All Rooms</h2>
+  <p class="subtitle">See all rooms in Grand Paradise Hotel & you can edit and delete</p>
+
+  <div class="panels">
+    <section class="panel">
+
+      <div *ngIf="loadingRooms" class="info">Loading rooms...</div>
+
+      <div class="room-card-grid" *ngIf="!loadingRooms && rooms.length">
+        <div class="room-card" *ngFor="let room of rooms">
+          <img [src]="room.imageUrl || room.image_url || 'assets/default-room.jpg'" alt="Room image" />
+          <div class="room-card-body">
+            <h4>{{ room.name }}</h4>
+            <p style="color: #666; font-size: 0.9rem; text-align: justify;">{{ room.description || ('Room number ' + room.room_number) }}</p>
+            <p class="price">₹{{ room.pricePerNight }} / night</p>
+            <p class="capacity">Capacity: {{ room.capacity }} guests</p>
+            <div class="card-actions">
+              <button type="button" [routerLink]="['/admin/rooms', room.id, 'edit']">Edit</button>
+              <button type="button" class="danger" (click)="deleteRoom(room.id)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!loadingRooms && !rooms.length" class="info">No rooms found.</div>
+    </section>
+  </div>
+
+  <p class="msg" *ngIf="message">{{ message }}</p>
+  <p class="error" *ngIf="error">{{ error }}</p>
+</div>
