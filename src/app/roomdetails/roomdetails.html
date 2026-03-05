@@ -12,15 +12,32 @@
 
   <div class="booking-form">
     <h3>Book This Room</h3>
-    <form (ngSubmit)="bookRoom()">
+    <form #bookingForm="ngForm" (ngSubmit)="bookRoom(bookingForm)">
       <label>Check-in Date</label>
-      <input type="date" [(ngModel)]="booking.checkInDate" name="checkInDate" required />
-
+      <input
+        type="date"
+        [(ngModel)]="booking.checkInDate"
+        name="checkInDate"
+        #checkIn="ngModel"
+        required
+      />
       <label>Check-out Date</label>
-      <input type="date" [(ngModel)]="booking.checkOutDate" name="checkOutDate" required />
+      <input
+        type="date"
+        [(ngModel)]="booking.checkOutDate"
+        name="checkOutDate"
+        #checkOut="ngModel"
+        required
+      />
 
       <label>Guests</label>
-      <input type="number" [(ngModel)]="booking.guests" name="guests" min="1" required />
+      <input
+        type="number"
+        [(ngModel)]="booking.guests"
+        name="guests"
+        min="1"
+        required
+      />
 
       <button type="submit">Confirm Booking</button>
     </form>

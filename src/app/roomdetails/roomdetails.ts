@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../services/auth';
 
 @Component({
@@ -53,7 +53,13 @@ export class RoomdetailsComponent implements OnInit {
     });
   }
 
-  bookRoom() {
+  bookRoom(form: NgForm) {
+    if (form.invalid) {
+      this.message = 'Please fill in the required dates.';
+      Object.values(form.controls).forEach(control => control.markAsTouched());
+      return;
+    }
+
     if (!this.auth.isLoggedIn()) {
       alert('Please login to continue booking.');
       this.router.navigate(['/login']);
