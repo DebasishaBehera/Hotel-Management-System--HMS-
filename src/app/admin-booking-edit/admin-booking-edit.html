@@ -1,0 +1,39 @@
+<div class="admin-container">
+  <h2>Edit Booking</h2>
+  <p class="subtitle">Update the details for this booking.</p>
+
+  <form (ngSubmit)="updateBooking()" class="room-form" *ngIf="!loading; else loadingTpl">
+    <div class="form-row">
+      <label>Room</label>
+      <input type="text" [value]="form.roomLabel" readonly />
+    </div>
+
+    <div class="form-row-inline">
+      <div>
+        <label>Check-in</label>
+        <input type="date" [(ngModel)]="form.checkInDate" name="checkInDate" required />
+      </div>
+      <div>
+        <label>Check-out</label>
+        <input type="date" [(ngModel)]="form.checkOutDate" name="checkOutDate" required />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label>Guests</label>
+      <input type="number" [(ngModel)]="form.guests" name="guests" min="1" required />
+    </div>
+
+    <div class="actions">
+      <button type="submit">Update Booking</button>
+      <button type="button" class="secondary" (click)="goBack()">Cancel</button>
+    </div>
+  </form>
+
+  <ng-template #loadingTpl>
+    <p class="info">Loading booking...</p>
+  </ng-template>
+
+  <p class="msg" *ngIf="message">{{ message }}</p>
+  <p class="error" *ngIf="error">{{ error }}</p>
+</div>

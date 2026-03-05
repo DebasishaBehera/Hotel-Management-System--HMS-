@@ -9,6 +9,7 @@ import { AboutComponent } from './about/about';
 import { AdminComponent } from './admin/admin';
 import { AdminLoginComponent } from './admin-login/admin-login';
 import { AdminRoomEditComponent } from './admin-room-edit/admin-room-edit';
+import { AdminBookingEditComponent } from './admin-booking-edit/admin-booking-edit';
 import { AdminBookingsComponent } from './admin-bookings/admin-bookings';
 import { AdminRoomsComponent } from './admin-rooms/admin-rooms';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard';
@@ -23,6 +24,7 @@ export const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: Contact },
   { path: 'admin-login', component: AdminLoginComponent },
+  { path: 'admin/bookings/:id/edit', component: AdminBookingEditComponent, canActivate: [adminGuard] },
   { path: 'admin/rooms/:id/edit', component: AdminRoomEditComponent, canActivate: [adminGuard] },
   { path: 'admin/new-room', component: AdminComponent, canActivate: [adminGuard] },
   { path: 'admin/bookings', component: AdminBookingsComponent, canActivate: [adminGuard] },

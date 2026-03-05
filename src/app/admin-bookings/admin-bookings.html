@@ -28,6 +28,7 @@
             <td>{{ booking.checkOutDate | date:'mediumDate' }}</td>
             <td>{{ booking.guests }}</td>
             <td>
+              <button (click)="editBooking(booking.id)">Edit</button>
               <button class="danger" (click)="deleteBooking(booking.id)">Cancel</button>
             </td>
           </tr>

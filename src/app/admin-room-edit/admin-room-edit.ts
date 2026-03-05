@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth';
+import { ImageUploadService } from '../image-upload.service';
 
 @Component({
   selector: 'app-admin-room-edit',
@@ -31,7 +32,8 @@ export class AdminRoomEditComponent implements OnInit {
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private imageUpload: ImageUploadService
   ) {}
 
   ngOnInit(): void {
@@ -109,6 +111,27 @@ export class AdminRoomEditComponent implements OnInit {
       error: (err) => {
         console.error(err);
         this.error = 'Failed to update room.';
+      }
+    });
+  }
+
+  onImageSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files && input.files[0];
+    if (!file) {
+      return;
+    }
+
+    this.loading = true;
+    this.imageUpload.uploadRoomImage(file).subscribe({
+      next: (url) => {
+        this.form.imageUrl = url;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.error = 'Failed to upload image. Please try again.';
+        this.loading = false;
       }
     });
   }

@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth';
 import { Room } from '../models/room';
+import { ImageUploadService } from '../image-upload.service';
 
 @Component({
   selector: 'app-admin',
@@ -21,6 +22,10 @@ export class AdminComponent implements OnInit {
   loadingBookings = false;
   message = '';
   error = '';
+
+  // Image upload state for new room form
+  uploadingImage = false;
+  imageUploadError = '';
 
   // Which admin view is currently active: 'new-room' | 'bookings' | 'view-rooms'
   selectedView: 'new-room' | 'bookings' | 'view-rooms' = 'new-room';
@@ -52,7 +57,8 @@ export class AdminComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private imageUpload: ImageUploadService
   ) {
     // Keep selectedView in sync when navigating between admin URLs
     this.router.events.subscribe((event) => {
@@ -131,6 +137,31 @@ export class AdminComponent implements OnInit {
       imageUrl: '',
       type: 'SINGLE'
     };
+    this.uploadingImage = false;
+    this.imageUploadError = '';
+  }
+
+  onRoomImageSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files && input.files[0];
+    if (!file) {
+      return;
+    }
+
+    this.uploadingImage = true;
+    this.imageUploadError = '';
+
+    this.imageUpload.uploadRoomImage(file).subscribe({
+      next: (url) => {
+        this.roomForm.imageUrl = url;
+        this.uploadingImage = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.imageUploadError = 'Failed to upload image. Please try again.';
+        this.uploadingImage = false;
+      }
+    });
   }
 
   cancelEditRoom() {

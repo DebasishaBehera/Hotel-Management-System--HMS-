@@ -40,8 +40,11 @@
         </div>
 
         <div class="form-row">
-          <label>Image URL</label>
-          <input type="text" [(ngModel)]="roomForm.imageUrl" name="imageUrl" />
+          <label>Room Image</label>
+          <input type="file" accept="image/*" (change)="onRoomImageSelected($event)" />
+          <small *ngIf="uploadingImage" class="info">Uploading image...</small>
+          <small *ngIf="roomForm.imageUrl && !uploadingImage" class="info">Image uploaded.</small>
+          <small *ngIf="imageUploadError" class="error">{{ imageUploadError }}</small>
         </div>
 
         <div class="actions">

@@ -52,6 +52,10 @@ export class AdminBookingsComponent implements OnInit {
     });
   }
 
+  editBooking(bookingId: number) {
+    this.router.navigate(['/admin/bookings', bookingId, 'edit']);
+  }
+
   deleteBooking(bookingId: number) {
     if (!confirm('Cancel this booking?')) {
       return;

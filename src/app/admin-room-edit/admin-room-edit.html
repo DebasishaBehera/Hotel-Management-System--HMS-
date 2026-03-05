@@ -35,8 +35,9 @@
     </div>
 
     <div class="form-row">
-      <label>Image URL</label>
-      <input type="text" [(ngModel)]="form.imageUrl" name="imageUrl" />
+      <label>Room Image</label>
+      <input type="file" accept="image/*" (change)="onImageSelected($event)" />
+      <small *ngIf="form.imageUrl" class="info">Image uploaded.</small>
     </div>
 
     <div class="actions">
