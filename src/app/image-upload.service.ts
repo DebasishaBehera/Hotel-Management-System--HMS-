@@ -5,8 +5,8 @@ import { Observable, map } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class ImageUploadService {
   // TODO: Replace with your actual Cloudinary details
-  private readonly cloudName = 'dkjewtv6d';
-  private readonly uploadPreset = 'room_images';
+  private readonly cloudName = 'Your_Cloud_Name';
+  private readonly uploadPreset = 'Your_Upload_Preset';
 
   constructor(private http: HttpClient) {}
 

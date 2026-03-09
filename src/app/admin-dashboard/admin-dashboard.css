@@ -52,6 +52,23 @@
   line-height: 1.45;
 }
 
+.card-tag {
+  display: inline-flex;
+  margin-bottom: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(255, 122, 89, 0.18), rgba(14, 165, 233, 0.16));
+  color: #9a3412;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.analytics-card {
+  background: radial-gradient(circle at top left, #fffaf5 0%, #fff4ee 40%, #eff9ff 100%);
+}
+
 .admin-container {
   max-width: 1100px;
   margin: 3rem auto 26rem;
