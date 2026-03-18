@@ -11,12 +11,16 @@ import { AuthService } from '../services/auth';
   styleUrl: './navbar.css',
 })
 export class Navbar {
-    isMenuOpen = false;
+  isMenuOpen = false;
 
   constructor(private auth: AuthService, private router: Router) {}
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenu() {
+    this.isMenuOpen = false;
   }
 
   isLoggedIn(): boolean {
@@ -27,9 +31,13 @@ export class Navbar {
     return this.auth.isAdmin();
   }
 
+  isUserLoggedIn(): boolean {
+    return this.isLoggedIn() && !this.isAdmin();
+  }
+
   logout() {
     this.auth.logout();
-    this.isMenuOpen = false;
+    this.closeMenu();
     this.router.navigate(['/login']);
   }
 

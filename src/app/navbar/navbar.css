@@ -1,13 +1,14 @@
 .navbar {
-  background: linear-gradient(to right, #007bff, #00c6ff);
-  color: white;
-  padding: 18px 20px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  background: linear-gradient(120deg, #0564d3 0%, #0a80f6 55%, #10b4ff 100%);
+  color: #ffffff;
+  padding: 14px 20px;
+  box-shadow: 0 10px 24px rgba(4, 35, 79, 0.28);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .nav-container {
@@ -18,55 +19,142 @@
   margin: auto;
 }
 
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.brand-mark {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.12) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.32), 0 8px 18px rgba(6, 43, 88, 0.28);
+  font-size: 1.08rem;
+  font-weight: 700;
+}
+
+.brand-copy {
+  display: inline-flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.brand-text {
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.16);
+}
+
+.brand-tag {
+  margin-top: 4px;
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgba(235, 247, 255, 0.92);
 }
 
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 25px;
+  gap: 18px;
   margin: 0;
+  align-items: center;
 }
 
 .nav-links li a {
-  color: white;
+  color: #eef7ff;
   text-decoration: none;
-  font-weight: 500;
-  transition: 0.3s;
-  font-size: 1.1rem;
+  font-weight: 600;
+  transition: color 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+  font-size: 1rem;
+  padding: 6px 2px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .nav-links li a:hover,
 .nav-links li a.active {
-  color: #ffeb3b;
+  color: #fff2bc;
+  transform: translateY(-1px);
 }
 
-.login-btn {
-  background: white;
-  color: #007bff !important;
-  padding: 6px 15px;
-  border-radius: 20px;
-  transition: 0.3s;
+.admin-link {
+  color: #ffd99a !important;
+}
+
+.pill-btn {
+  background: rgba(255, 255, 255, 0.95);
+  color: #085fbf !important;
+  padding: 8px 16px !important;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   cursor: pointer;
 }
 
-.login-btn:hover {
-  background: #f1f1f1;
+.pill-highlight {
+  background: #ffc96d;
+  color: #673200 !important;
+  border-color: #ffc96d;
+}
+
+.pill-btn:hover,
+.pill-btn.active {
+  background: #ffffff;
+  color: #0a4e98 !important;
+  box-shadow: 0 8px 18px rgba(5, 52, 104, 0.2);
+  transform: translateY(-1px);
+}
+
+.pill-highlight:hover,
+.pill-highlight.active {
+  background: #ffbe54;
+  color: #5d2d00 !important;
+  box-shadow: 0 10px 20px rgba(92, 58, 14, 0.28);
 }
 
 .menu-toggle {
   display: none;
-  background: transparent;
-  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
   font-size: 1.5rem;
-  color: white;
+  color: #ffffff;
   cursor: pointer;
+  line-height: 1;
 }
 
-/* 📱 Responsive Navbar */
 @media (max-width: 768px) {
+  .navbar {
+    padding: 12px 14px;
+  }
+
+  .brand-text {
+    font-size: 1.34rem;
+  }
+
+  .brand-mark {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+  }
+
+  .brand-tag {
+    display: none;
+  }
+
   .menu-toggle {
     display: block;
   }
@@ -74,17 +162,45 @@
   .nav-links {
     display: none;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
     position: absolute;
-    top: 60px;
-    left: 0;
-    right: 0;
-    background: #007bff;
-    padding: 20px 0;
+    top: 62px;
+    left: 10px;
+    right: 10px;
+    background: linear-gradient(140deg, rgba(6, 93, 194, 0.97), rgba(14, 151, 246, 0.95));
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 14px;
+    padding: 14px 0;
     text-align: center;
+    box-shadow: 0 20px 30px rgba(0, 23, 49, 0.38);
   }
 
   .nav-links.active {
     display: flex;
+    animation: nav-drop 180ms ease-out;
+  }
+
+  .nav-links li a {
+    width: 100%;
+    justify-content: center;
+    padding: 8px 12px;
+  }
+
+  .pill-btn {
+    margin-top: 4px;
+    width: auto;
+    min-width: 124px;
+  }
+}
+
+@keyframes nav-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

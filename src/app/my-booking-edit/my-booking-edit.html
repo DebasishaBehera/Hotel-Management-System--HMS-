@@ -1,0 +1,63 @@
+<section class="booking-edit-page">
+  <div class="booking-edit-shell">
+    <a routerLink="/my-bookings" class="back-link">Back to my bookings</a>
+
+    <div class="edit-card">
+      <h2>Edit booking</h2>
+      <p class="subtitle">Change your stay dates or update the number of guests for this reservation.</p>
+
+      <div *ngIf="loading" class="state-message">Loading booking...</div>
+
+      <form *ngIf="!loading" (ngSubmit)="updateBooking()" class="edit-form">
+        <div class="form-row">
+          <label>Room</label>
+          <input type="text" [value]="form.roomLabel" readonly />
+        </div>
+
+        <div class="form-grid">
+          <div class="form-row">
+            <label>Check-in date</label>
+            <input
+              type="date"
+              [(ngModel)]="form.checkInDate"
+              name="checkInDate"
+              [min]="today"
+              (ngModelChange)="onCheckInDateChange()"
+              required
+            />
+          </div>
+
+          <div class="form-row">
+            <label>Check-out date</label>
+            <input
+              type="date"
+              [(ngModel)]="form.checkOutDate"
+              name="checkOutDate"
+              [min]="minCheckOutDate"
+              (ngModelChange)="onCheckOutDateChange()"
+              required
+            />
+          </div>
+        </div>
+
+        <p class="booked-date-hint">
+          <span class="booked-date-dot" aria-hidden="true"></span>
+          Gray dates are already booked and cannot be selected.
+        </p>
+
+        <div class="form-row">
+          <label>Guests</label>
+          <input type="number" [(ngModel)]="form.guests" name="guests" min="1" required />
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="primary-btn" [disabled]="!canSubmitUpdate">Save changes</button>
+          <button type="button" class="secondary-btn" (click)="goBack()">Cancel</button>
+        </div>
+      </form>
+
+      <p *ngIf="message" class="flash success">{{ message }}</p>
+      <p *ngIf="error" class="flash error">{{ error }}</p>
+    </div>
+  </div>
+</section>

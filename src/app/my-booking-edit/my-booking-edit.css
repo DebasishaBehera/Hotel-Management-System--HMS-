@@ -1,0 +1,122 @@
+.booking-edit-page {
+  padding: 48px 20px 72px;
+  background: linear-gradient(180deg, #f7fbff 0%, #eef3f8 100%);
+}
+
+.booking-edit-shell {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: #13304b;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.edit-card {
+  padding: 30px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(19, 48, 75, 0.08);
+  box-shadow: 0 20px 46px rgba(19, 48, 75, 0.1);
+}
+
+.edit-card h2 {
+  margin: 0;
+  color: #13304b;
+}
+
+.subtitle {
+  margin: 10px 0 24px;
+  color: #52657b;
+}
+
+.state-message {
+  color: #52657b;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-row label {
+  color: #13304b;
+  font-weight: 600;
+}
+
+.form-row input {
+  border: 1px solid rgba(19, 48, 75, 0.16);
+  border-radius: 14px;
+  padding: 13px 14px;
+  font: inherit;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+.primary-btn,
+.secondary-btn {
+  border: 0;
+  border-radius: 14px;
+  padding: 13px 18px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-btn {
+  background: #13304b;
+  color: #fff;
+}
+
+.secondary-btn {
+  background: #e9eff5;
+  color: #13304b;
+}
+
+.flash {
+  margin: 18px 0 0;
+  padding: 13px 14px;
+  border-radius: 14px;
+}
+
+.flash.success {
+  background: #e6f7ef;
+  color: #17663d;
+}
+
+.flash.error {
+  background: #fff0ee;
+  color: #a43a2e;
+}
+
+@media (max-width: 640px) {
+  .edit-card {
+    padding: 24px;
+  }
+
+  .form-grid,
+  .actions {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+}

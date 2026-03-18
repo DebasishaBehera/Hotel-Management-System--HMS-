@@ -1,50 +1,132 @@
-<div class="room-details-container" *ngIf="!loading && room">
-  <div class="room-image">
-    <img [src]="room.imageUrl || 'assets/default-room.jpg'" alt="Room Image" />
-  </div>
+<div class="room-details-page" *ngIf="!loading && room">
+  <div class="room-details-container">
+    <a routerLink="/rooms" class="back-link">Back to rooms</a>
 
-  <div class="room-info">
-    <h2>{{ room.name }}</h2>
-    <p style="text-align: justify;">{{ room.description }}</p>
-    <p><strong>Price:</strong> ₹{{ room.pricePerNight }} / night</p>
-    <p><strong>Capacity:</strong> {{ room.capacity }} guests</p>
-  </div>
+    <div class="room-showcase">
+      <div class="room-image">
+        <img [src]="room.imageUrl || 'assets/default-room.jpg'" alt="Room Image" />
+        <span class="room-type-badge" *ngIf="room.type">{{ room.type }}</span>
+      </div>
 
-  <div class="booking-form">
-    <h3>Book This Room</h3>
-    <form #bookingForm="ngForm" (ngSubmit)="bookRoom(bookingForm)">
-      <label>Check-in Date</label>
-      <input
-        type="date"
-        [(ngModel)]="booking.checkInDate"
-        name="checkInDate"
-        #checkIn="ngModel"
-        required
-      />
-      <label>Check-out Date</label>
-      <input
-        type="date"
-        [(ngModel)]="booking.checkOutDate"
-        name="checkOutDate"
-        #checkOut="ngModel"
-        required
-      />
+      <div class="room-info">
+        <p class="eyebrow">Room details</p>
+        <h2>{{ room.name }}</h2>
+        <p class="room-copy">{{ room.description }}</p>
 
-      <label>Guests</label>
-      <input
-        type="number"
-        [(ngModel)]="booking.guests"
-        name="guests"
-        min="1"
-        required
-      />
+        <div class="room-stats">
+          <div class="stat-card">
+            <span>Price</span>
+            <strong>₹{{ room.pricePerNight }}</strong>
+            <small>per night</small>
+          </div>
+          <div class="stat-card">
+            <span>Capacity</span>
+            <strong>{{ room.capacity }}</strong>
+            <small>guests max</small>
+          </div>
+          <div class="stat-card" *ngIf="room.type">
+            <span>Category</span>
+            <strong>{{ room.type }}</strong>
+            <small>room style</small>
+          </div>
+        </div>
+      </div>
+    </div>
 
-      <button type="submit">Confirm Booking</button>
-    </form>
+    <div class="booking-panel">
+      <div class="booking-form-card">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">Reservation</p>
+            <h3>Book This Room</h3>
+          </div>
+          <span class="panel-chip">Instant estimate</span>
+        </div>
 
-    <p class="msg" [style.color]="message === 'Booking successful' ? 'green' : 'red'">
-      {{ message }}
-    </p>
+        <form #bookingForm="ngForm" (ngSubmit)="bookRoom(bookingForm)">
+          <div class="date-grid">
+            <div class="field-group">
+              <label>Check-in Date</label>
+              <input
+                type="date"
+                [(ngModel)]="booking.checkInDate"
+                name="checkInDate"
+                #checkIn="ngModel"
+                [min]="today"
+                (ngModelChange)="onCheckInChange()"
+                required
+              />
+            </div>
+
+            <div class="field-group">
+              <label>Check-out Date</label>
+              <input
+                type="date"
+                [(ngModel)]="booking.checkOutDate"
+                name="checkOutDate"
+                #checkOut="ngModel"
+                [min]="minCheckoutDate"
+                (ngModelChange)="onCheckOutChange()"
+                required
+              />
+            </div>
+          </div>
+
+          <p class="booked-date-hint">
+            <span class="booked-date-dot" aria-hidden="true"></span>
+            Gray dates are already booked and cannot be selected.
+          </p>
+
+          <div class="guest-row">
+            <div class="field-group guest-field">
+              <label>Guests</label>
+              <div class="guest-stepper">
+                <button type="button" (click)="decreaseGuests()">-</button>
+                <input
+                  type="number"
+                  [(ngModel)]="booking.guests"
+                  name="guests"
+                  min="1"
+                  [max]="room.capacity"
+                  required
+                />
+                <button type="button" (click)="increaseGuests()">+</button>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="confirm-btn" [disabled]="!canSubmitBooking">Confirm Booking</button>
+        </form>
+
+        <p class="msg" *ngIf="message" [ngClass]="messageTone">
+          {{ message }}
+        </p>
+      </div>
+
+      <aside class="booking-summary">
+        <p class="eyebrow">Booking summary</p>
+        <h3>Your stay snapshot</h3>
+
+        <div class="summary-line">
+          <span>Nights</span>
+          <strong>{{ stayNights || 0 }}</strong>
+        </div>
+        <div class="summary-line">
+          <span>Guests</span>
+          <strong>{{ booking.guests }}</strong>
+        </div>
+        <div class="summary-line">
+          <span>Rate</span>
+          <strong>₹{{ room.pricePerNight }} / night</strong>
+        </div>
+        <div class="summary-line total-line">
+          <span>Estimated total</span>
+          <strong>₹{{ estimatedTotal || 0 }}</strong>
+        </div>
+
+        <p class="summary-note">Choose check-in and check-out dates to see the total price before confirming.</p>
+      </aside>
+    </div>
   </div>
 </div>
 

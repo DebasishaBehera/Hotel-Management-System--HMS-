@@ -53,6 +53,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    localStorage.removeItem('email');
   }
 
   isLoggedIn(): boolean {
@@ -61,5 +62,9 @@ export class AuthService {
 
   isAdmin(): boolean {
     return localStorage.getItem('role') === 'ADMIN';
+  }
+
+  getUserEmail(): string {
+    return localStorage.getItem('email') || '';
   }
 }

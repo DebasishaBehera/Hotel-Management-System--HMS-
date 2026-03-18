@@ -11,13 +11,32 @@
     <div class="form-row-inline">
       <div>
         <label>Check-in</label>
-        <input type="date" [(ngModel)]="form.checkInDate" name="checkInDate" required />
+        <input
+          type="date"
+          [(ngModel)]="form.checkInDate"
+          name="checkInDate"
+          [min]="today"
+          (ngModelChange)="onCheckInDateChange()"
+          required
+        />
       </div>
       <div>
         <label>Check-out</label>
-        <input type="date" [(ngModel)]="form.checkOutDate" name="checkOutDate" required />
+        <input
+          type="date"
+          [(ngModel)]="form.checkOutDate"
+          name="checkOutDate"
+          [min]="minCheckOutDate"
+          (ngModelChange)="onCheckOutDateChange()"
+          required
+        />
       </div>
     </div>
+
+    <p class="booked-date-hint">
+      <span class="booked-date-dot" aria-hidden="true"></span>
+      Gray dates are already booked and cannot be selected.
+    </p>
 
     <div class="form-row">
       <label>Guests</label>
@@ -25,7 +44,7 @@
     </div>
 
     <div class="actions">
-      <button type="submit">Update Booking</button>
+      <button type="submit" [disabled]="!canSubmitUpdate">Update Booking</button>
       <button type="button" class="secondary" (click)="goBack()">Cancel</button>
     </div>
   </form>

@@ -1,26 +1,93 @@
-<div class="admin-container" style="max-width: 1400px">
+<div class="admin-container admin-rooms-shell" style="max-width: 1400px">
+  <p class="page-label">Inventory desk</p>
   <h2>All Rooms</h2>
-  <p class="subtitle">See all rooms in Grand Paradise Hotel & you can edit and delete</p>
+  <p class="subtitle">Search, sort, and manage room inventory without leaving this page.</p>
+
+  <div class="overview-grid room-overview" *ngIf="!loadingRooms && rooms.length">
+    <div class="overview-card">
+      <span>Total rooms</span>
+      <strong>{{ rooms.length }}</strong>
+    </div>
+    <div class="overview-card">
+      <span>Visible now</span>
+      <strong>{{ filteredRooms.length }}</strong>
+    </div>
+    <div class="overview-card">
+      <span>Avg price</span>
+      <strong>₹{{ averagePrice }}</strong>
+    </div>
+    <div class="overview-card">
+      <span>Max capacity</span>
+      <strong>{{ maxCapacity }} guests</strong>
+    </div>
+  </div>
+
+  <div class="toolbar room-toolbar" *ngIf="!loadingRooms && rooms.length">
+    <div class="toolbar-field search-field">
+      <label>Search</label>
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Room name, description, or type" />
+    </div>
+
+    <div class="toolbar-field">
+      <label>Room type</label>
+      <select [(ngModel)]="selectedType">
+        <option value="all">All types</option>
+        <option *ngFor="let type of roomTypes" [value]="type.toLowerCase()">{{ type }}</option>
+      </select>
+    </div>
+
+    <div class="toolbar-field">
+      <label>Sort by</label>
+      <select [(ngModel)]="sortBy">
+        <option value="recommended">Recommended</option>
+        <option value="name">Room name</option>
+        <option value="price-high">Price: High to Low</option>
+        <option value="price-low">Price: Low to High</option>
+        <option value="capacity">Capacity</option>
+      </select>
+    </div>
+
+    <button type="button" class="reset-btn" *ngIf="searchTerm || selectedType !== 'all' || sortBy !== 'recommended'" (click)="clearFilters()">
+      Reset
+    </button>
+  </div>
 
   <div class="panels">
     <section class="panel">
 
       <div *ngIf="loadingRooms" class="info">Loading rooms...</div>
 
-      <div class="room-card-grid" *ngIf="!loadingRooms && rooms.length">
-        <div class="room-card" *ngFor="let room of rooms">
+      <div class="room-card-grid admin-room-grid" *ngIf="!loadingRooms && filteredRooms.length">
+        <div class="room-card admin-room-card" *ngFor="let room of filteredRooms">
           <img [src]="room.imageUrl || room.image_url || 'assets/default-room.jpg'" alt="Room image" />
           <div class="room-card-body">
-            <h4>{{ room.name }}</h4>
-            <p style="color: #666; font-size: 0.9rem; text-align: justify;">{{ room.description || ('Room number ' + room.room_number) }}</p>
-            <p class="price">₹{{ room.pricePerNight }} / night</p>
-            <p class="capacity">Capacity: {{ room.capacity }} guests</p>
+            <div class="room-card-head">
+              <div>
+                <h4>{{ getRoomName(room) }}</h4>
+                <span class="room-type-pill">{{ getRoomType(room) }}</span>
+              </div>
+            </div>
+            <p class="admin-room-description">{{ getRoomDescription(room) }}</p>
+            <div class="room-metrics">
+              <div>
+                <span>Price</span>
+                <strong class="price">₹{{ getRoomPrice(room) }} / night</strong>
+              </div>
+              <div>
+                <span>Capacity</span>
+                <strong class="capacity">{{ getRoomCapacity(room) }} guests</strong>
+              </div>
+            </div>
             <div class="card-actions">
               <button type="button" [routerLink]="['/admin/rooms', room.id, 'edit']">Edit</button>
               <button type="button" class="danger" (click)="deleteRoom(room.id)">Delete</button>
             </div>
           </div>
         </div>
+      </div>
+
+      <div *ngIf="!loadingRooms && rooms.length && !filteredRooms.length" class="info empty-state">
+        No rooms match your current search or filter.
       </div>
 
       <div *ngIf="!loadingRooms && !rooms.length" class="info">No rooms found.</div>

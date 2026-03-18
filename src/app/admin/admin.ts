@@ -12,7 +12,7 @@ import { ImageUploadService } from '../image-upload.service';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './admin.html',
-  styleUrl: './admin.css'
+  styleUrls: ['./admin.css', './admin-create.css']
 })
 export class AdminComponent implements OnInit {
   rooms: Room[] = [];

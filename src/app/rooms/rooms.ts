@@ -20,6 +20,9 @@ export class RoomsComponent implements OnInit {
 
   checkInDate = '';
   checkOutDate = '';
+  searchTerm = '';
+  selectedType = 'all';
+  sortBy = 'recommended';
 
   constructor(
     private http: HttpClient,
@@ -29,6 +32,67 @@ export class RoomsComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchRooms();
+  }
+
+  get roomTypes(): string[] {
+    return Array.from(
+      new Set(
+        this.rooms
+          .map((room) => this.getRoomType(room))
+          .filter((type) => !!type)
+      )
+    );
+  }
+
+  get displayedRooms(): Room[] {
+    const normalizedSearch = this.searchTerm.trim().toLowerCase();
+
+    const filteredRooms = this.rooms.filter((room) => {
+      const roomName = this.getRoomName(room).toLowerCase();
+      const roomType = this.getRoomType(room).toLowerCase();
+      const roomDescription = this.getRoomDescription(room).toLowerCase();
+      const matchesSearch = !normalizedSearch
+        || roomName.includes(normalizedSearch)
+        || roomType.includes(normalizedSearch)
+        || roomDescription.includes(normalizedSearch);
+      const matchesType = this.selectedType === 'all'
+        || roomType === this.selectedType.toLowerCase();
+
+      return matchesSearch && matchesType;
+    });
+
+    return filteredRooms.sort((first, second) => {
+      if (this.sortBy === 'price-low') {
+        return this.getRoomPrice(first) - this.getRoomPrice(second);
+      }
+
+      if (this.sortBy === 'price-high') {
+        return this.getRoomPrice(second) - this.getRoomPrice(first);
+      }
+
+      if (this.sortBy === 'name') {
+        return this.getRoomName(first).localeCompare(this.getRoomName(second));
+      }
+
+      return 0;
+    });
+  }
+
+  get hasDateFilter(): boolean {
+    return !!(this.checkInDate || this.checkOutDate);
+  }
+
+  get averageRoomPrice(): number {
+    if (!this.displayedRooms.length) {
+      return 0;
+    }
+
+    const total = this.displayedRooms.reduce((sum, room) => sum + this.getRoomPrice(room), 0);
+    return Math.round(total / this.displayedRooms.length);
+  }
+
+  get canSearchDates(): boolean {
+    return !!this.checkInDate && !!this.checkOutDate;
   }
 
   fetchRooms() {
@@ -56,6 +120,11 @@ export class RoomsComponent implements OnInit {
       return;
     }
 
+    if (this.checkOutDate <= this.checkInDate) {
+      this.error = 'Check-out date must be after check-in date.';
+      return;
+    }
+
     this.loading = true;
     this.error = '';
 
@@ -80,5 +149,27 @@ export class RoomsComponent implements OnInit {
     this.error = '';
     this.loading = true;
     this.fetchRooms();
+  }
+
+  clearViewFilters(): void {
+    this.searchTerm = '';
+    this.selectedType = 'all';
+    this.sortBy = 'recommended';
+  }
+
+  getRoomName(room: Room): string {
+    return room.name || room.type || `Room ${room.room_number}`;
+  }
+
+  getRoomDescription(room: Room): string {
+    return room.description || `Room number ${room.room_number}`;
+  }
+
+  getRoomType(room: Room): string {
+    return room.type || '';
+  }
+
+  getRoomPrice(room: Room): number {
+    return Number(room.pricePerNight || room.price || 0);
   }
 }
