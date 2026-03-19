@@ -47,7 +47,15 @@
 
         <div class="form-row">
           <label>Guests</label>
-          <input type="number" [(ngModel)]="form.guests" name="guests" min="1" required />
+          <input
+            type="number"
+            [(ngModel)]="form.guests"
+            name="guests"
+            min="1"
+            [max]="roomCapacity || null"
+            required
+          />
+          <p class="capacity-hint" *ngIf="roomCapacity">Maximum {{ roomCapacity }} guests for this room.</p>
         </div>
 
         <div class="actions">

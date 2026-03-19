@@ -5,7 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: radial-gradient(circle at top left, #0f766e, #022c22 50%, #020617);
+  background: radial-gradient(circle at top left, #7554b2, #0e1c2f 50%, #1b2965);
   font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 
@@ -63,7 +63,7 @@
 /* Form Box */
 
 .form-box {
-  background: linear-gradient(135deg, rgba(15, 118, 110, 0.55), rgba(6, 78, 59, 0.8));
+  background: linear-gradient(135deg, rgb(15 106 118 / 55%), rgb(21 45 67 / 80%));
   padding: 30px 28px 26px;
   border-radius: 18px;
   box-shadow: 0 28px 80px rgba(0, 0, 0, 0.5);
@@ -116,7 +116,7 @@ textarea:focus {
 button {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(90deg, #22c55e, #4ade80);
+  background: linear-gradient(90deg, #0f59c6, #ffd86b);
   border: none;
   color: #022c22;
   font-size: 1rem;

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth';
@@ -53,6 +53,9 @@ export class AdminComponent implements OnInit {
   };
 
   editingRoomId: number | null = null;
+
+  // Reference to the native file input so we can clear it
+  @ViewChild('roomImageInput') roomImageInput!: ElementRef<HTMLInputElement>;
 
   constructor(
     private http: HttpClient,
@@ -139,6 +142,12 @@ export class AdminComponent implements OnInit {
     };
     this.uploadingImage = false;
     this.imageUploadError = '';
+
+    // Also clear the file input control so the previous
+    // filename is not shown after reset or successful submit
+    if (this.roomImageInput) {
+      this.roomImageInput.nativeElement.value = '';
+    }
   }
 
   onRoomImageSelected(event: Event) {
@@ -180,7 +189,8 @@ export class AdminComponent implements OnInit {
         this.roomForm.capacity === null ||
         this.roomForm.capacity === undefined ||
         this.roomForm.capacity < 1 ||
-        !this.roomForm.type) {
+        !this.roomForm.type ||
+        !this.roomForm.imageUrl) {
       this.error = 'Please fill in all required fields with valid values before submitting.';
       return;
     }

@@ -22,6 +22,9 @@ export class AdminBookingEditComponent implements OnInit {
     guests: 1
   };
 
+  // Maximum guests allowed for this room (from backend)
+  roomCapacity: number | null = null;
+
   loading = false;
   message = '';
   error = '';
@@ -76,6 +79,14 @@ export class AdminBookingEditComponent implements OnInit {
         this.form.checkOutDate = (data.checkOutDate || '').substring(0, 10);
         this.form.guests = data.guests ?? 1;
 
+        const capacity = Number(
+          data.room?.capacity ??
+          (data.roomCapacity as number | undefined) ??
+          (data.capacity as number | undefined) ??
+          NaN
+        );
+        this.roomCapacity = Number.isFinite(capacity) && capacity > 0 ? capacity : null;
+
         this.loading = false;
       },
       error: (err) => {
@@ -101,6 +112,11 @@ export class AdminBookingEditComponent implements OnInit {
 
     if (Number(this.form.guests) < 1) {
       this.error = 'Guests must be at least 1.';
+      return;
+    }
+
+    if (this.roomCapacity !== null && Number(this.form.guests) > this.roomCapacity) {
+      this.error = `Guests cannot exceed room capacity (max ${this.roomCapacity}).`;
       return;
     }
 
@@ -155,7 +171,8 @@ export class AdminBookingEditComponent implements OnInit {
     return !!this.form.checkInDate
       && !!this.form.checkOutDate
       && this.stayNights > 0
-      && Number(this.form.guests) >= 1;
+      && Number(this.form.guests) >= 1
+      && (this.roomCapacity === null || Number(this.form.guests) <= this.roomCapacity);
   }
 
   onCheckInDateChange(): void {

@@ -53,7 +53,7 @@
 
         <div class="form-row upload-field">
           <label>Room Image</label>
-          <input type="file" accept="image/*" (change)="onRoomImageSelected($event)" />
+          <input #roomImageInput type="file" accept="image/*" (change)="onRoomImageSelected($event)" />
           <div class="upload-note">
             <small *ngIf="uploadingImage" class="info">Uploading image...</small>
             <small *ngIf="roomForm.imageUrl && !uploadingImage" class="info">Image uploaded successfully.</small>
@@ -62,7 +62,7 @@
         </div>
 
         <div class="actions create-actions">
-          <button type="submit" [disabled]="uploadingImage || !roomForm.name.trim() || roomForm.pricePerNight <= 0 || roomForm.capacity < 1">
+          <button type="submit" [disabled]="uploadingImage || !roomForm.name.trim() || roomForm.pricePerNight <= 0 || roomForm.capacity < 1 || !roomForm.imageUrl">
             {{ roomForm.id ? 'Update Room' : 'Add Room' }}
           </button>
           <button type="button" class="secondary" (click)="resetRoomForm()">Reset Form</button>
