@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { trigger, transition, style, animate, query, group } from '@angular/animations';
 import { Navbar } from './navbar/navbar';
 import { Footer } from './footer/footer';
+import { ChatbotComponent } from './chatbot/chatbot';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Navbar, Footer],
+  imports: [RouterOutlet, Navbar, Footer, ChatbotComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
   animations: [
