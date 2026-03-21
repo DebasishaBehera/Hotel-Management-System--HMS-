@@ -55,6 +55,13 @@ interface RoomPerformance {
   share: number;
 }
 
+interface CheckInDayProfile {
+  day: string;
+  fullName: string;
+  count: number;
+  percent: number;
+}
+
 @Component({
   selector: 'app-admin-analytics',
   standalone: true,
@@ -78,6 +85,14 @@ export class AdminAnalyticsComponent implements OnInit {
   chartAxisLabels: ChartAxisLabel[] = [];
   roomPerformance: RoomPerformance[] = [];
   strategicSignals: string[] = [];
+
+  stayDurationProfile = {
+    short: { count: 0, percent: 0 },
+    medium: { count: 0, percent: 0 },
+    long: { count: 0, percent: 0 },
+  };
+  checkInDays: CheckInDayProfile[] = [];
+  peakCheckInDay = '';
 
   totalRevenue = 0;
   totalBookedNights = 0;
@@ -294,6 +309,7 @@ export class AdminAnalyticsComponent implements OnInit {
     }
 
     this.roomPerformance = this.buildRoomPerformance();
+    this.buildGuestPatterns();
     this.updateDisplayedChart();
     this.strategicSignals = this.buildSignals();
   }
@@ -375,6 +391,45 @@ export class AdminAnalyticsComponent implements OnInit {
         ...room,
         share: this.totalRevenue > 0 ? (room.revenue / this.totalRevenue) * 100 : 0
       }));
+  }
+
+  private buildGuestPatterns(): void {
+    let shortCount = 0;
+    let mediumCount = 0;
+    let longCount = 0;
+    const dayCounts = [0, 0, 0, 0, 0, 0, 0];
+    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+    this.bookings.forEach((b) => {
+      if (b.nights <= 2) {
+        shortCount++;
+      } else if (b.nights <= 4) {
+        mediumCount++;
+      } else {
+        longCount++;
+      }
+
+      const dayIndex = b.checkInDate.getDay();
+      dayCounts[dayIndex]++;
+    });
+
+    const total = this.bookings.length || 1;
+    this.stayDurationProfile = {
+      short: { count: shortCount, percent: (shortCount / total) * 100 },
+      medium: { count: mediumCount, percent: (mediumCount / total) * 100 },
+      long: { count: longCount, percent: (longCount / total) * 100 },
+    };
+
+    const maxValue = Math.max(...dayCounts, 1);
+    this.checkInDays = dayCounts.map((count, i) => ({
+      day: dayNames[i].substring(0, 3),
+      fullName: dayNames[i],
+      count,
+      percent: (count / maxValue) * 100
+    }));
+
+    const peakIndex = dayCounts.indexOf(Math.max(...dayCounts));
+    this.peakCheckInDay = Math.max(...dayCounts) > 0 ? dayNames[peakIndex] : 'N/A';
   }
 
   private buildRevenueChart(): void {

@@ -9,7 +9,7 @@
 
 .admin-edit-shell {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   border: 1px solid rgba(19, 82, 130, 0.14);
   background:
     radial-gradient(circle at 10% 0%, rgba(255, 229, 191, 0.3), transparent 36%),
@@ -170,6 +170,121 @@
 
 .form-row-inline > div {
   flex: 1;
+  min-width: 0;
+}
+
+.date-picker-wrap {
+  position: relative;
+}
+
+.date-display {
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+  padding: 0.5rem 0.65rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5f5;
+  font-size: 0.9rem;
+  text-align: left;
+  background: #ffffff;
+  color: #15324a;
+  cursor: pointer;
+}
+
+.calendar-popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 25;
+  width: min(320px, 100%);
+  padding: 12px;
+  border: 1px solid #cfdcf0;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 18px 34px rgba(15, 76, 129, 0.2);
+}
+
+.form-row-inline > .date-picker-wrap:last-child .calendar-popover {
+  left: auto;
+  right: 0;
+}
+
+.calendar-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.calendar-head strong {
+  font-size: 0.9rem;
+  color: #0b2f53;
+}
+
+.calendar-head div {
+  display: flex;
+  gap: 6px;
+}
+
+.calendar-head button {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #d9e3ee;
+  border-radius: 8px;
+  background: #f8fbff;
+  color: #0d5ea2;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.calendar-weekdays,
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.calendar-weekdays {
+  margin-bottom: 6px;
+}
+
+.calendar-weekdays span {
+  text-align: center;
+  color: #70859b;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.calendar-empty {
+  height: 34px;
+}
+
+.calendar-day {
+  height: 34px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #0c355a;
+  cursor: pointer;
+  font-size: 0.84rem;
+}
+
+.calendar-day:hover {
+  background: #edf5ff;
+  border-color: #bcd5ef;
+}
+
+.calendar-day.selected {
+  background: #0b84f3;
+  color: #ffffff;
+}
+
+.calendar-day.booked,
+.calendar-day.disabled {
+  background: #edf1f6;
+  color: #9aa8b7;
+  border-color: #e1e7ef;
+  cursor: not-allowed;
 }
 
 .actions {

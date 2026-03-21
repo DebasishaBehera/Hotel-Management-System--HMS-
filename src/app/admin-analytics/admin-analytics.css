@@ -446,6 +446,119 @@
   line-height: 1.5;
 }
 
+.patterns-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  margin-top: 0.5rem;
+}
+
+.pattern-block h4 {
+  font-size: 1rem;
+  color: #0f172a;
+  margin: 0 0 1.25rem;
+  font-weight: 600;
+}
+
+.duration-item {
+  margin-bottom: 1.25rem;
+}
+
+.duration-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+  color: #334155;
+  font-weight: 500;
+}
+
+.duration-label small {
+  color: #64748b;
+  font-weight: 400;
+  margin-left: 0.4rem;
+}
+
+.duration-track {
+  height: 10px;
+  background: rgba(148, 163, 184, 0.16);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.duration-fill {
+  height: 100%;
+  border-radius: inherit;
+}
+
+.short-fill { background: linear-gradient(90deg, #38bdf8, #0ea5e9); }
+.mid-fill { background: linear-gradient(90deg, #34d399, #10b981); }
+.long-fill { background: linear-gradient(90deg, #a78bfa, #8b5cf6); }
+
+.days-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 140px;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.day-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  gap: 0.4rem;
+}
+
+.day-bar-wrap {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.day-bar {
+  width: 24px;
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 6px 6px 0 0;
+  transition: height 0.6s ease;
+}
+
+.day-bar.peak {
+  background: linear-gradient(to top, #ff7a59, #f59e0b);
+}
+
+.day-label {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.day-label.peak-text {
+  color: #b45309;
+  font-weight: 700;
+}
+
+.day-count {
+  font-size: 0.75rem;
+  color: #0f172a;
+  font-weight: 600;
+  transition: opacity 0.3s;
+}
+
+.pattern-note {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #475569;
+}
+.pattern-note strong {
+  color: #0f172a;
+}
+
 @media (max-width: 1024px) {
   .panel-wide,
   .gauge-panel,
@@ -485,5 +598,10 @@
   .gauge-ring {
     width: 150px;
     height: 150px;
+  }
+
+  .patterns-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 }

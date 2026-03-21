@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, DoCheck, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -36,14 +36,14 @@ interface ProductPreview {
   templateUrl: './chatbot.html',
   styleUrl: './chatbot.css'
 })
-export class ChatbotComponent {
+export class ChatbotComponent implements DoCheck {
   @ViewChild('chatBody')
   private chatBody?: ElementRef<HTMLDivElement>;
 
   isOpen = false;
   isTyping = false;
   inputText = '';
-  readonly userName = this.getDisplayName();
+  private authSnapshot = this.getAuthSnapshot();
 
   private readonly steps: ChatStep[] = [
     {
@@ -137,24 +137,15 @@ export class ChatbotComponent {
     }
   ];
 
-  messages: ChatMessage[] = [
-    {
-      sender: 'bot',
-      text: 'Please excuse any mistakes. Do not share personal information in this chat.',
-      time: this.getCurrentTime()
-    },
-    {
-      sender: 'bot',
-      text: `Hey ${this.userName}, I am your Hotel Support Assistant.`,
-      time: this.getCurrentTime()
-    },
-    {
-      sender: 'bot',
-      text: 'How may I help you?',
-      time: this.getCurrentTime(),
-      options: this.getStepOptions('start')
+  messages: ChatMessage[] = this.createInitialMessages();
+
+  ngDoCheck(): void {
+    const currentSnapshot = this.getAuthSnapshot();
+    if (currentSnapshot !== this.authSnapshot) {
+      this.authSnapshot = currentSnapshot;
+      this.resetConversation();
     }
-  ];
+  }
 
   toggleChat(): void {
     this.isOpen = !this.isOpen;
@@ -396,6 +387,47 @@ export class ChatbotComponent {
       .filter((part) => !!part)
       .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
       .join(' ');
+  }
+
+  private createInitialMessages(): ChatMessage[] {
+    const userName = this.getDisplayName();
+
+    return [
+      {
+        sender: 'bot',
+        text: 'Please excuse any mistakes. Do not share personal information in this chat.',
+        time: this.getCurrentTime()
+      },
+      {
+        sender: 'bot',
+        text: `Hey ${userName}, I am your Hotel Support Assistant.`,
+        time: this.getCurrentTime()
+      },
+      {
+        sender: 'bot',
+        text: 'How may I help you?',
+        time: this.getCurrentTime(),
+        options: this.getStepOptions('start')
+      }
+    ];
+  }
+
+  private resetConversation(): void {
+    this.messages = this.createInitialMessages();
+    this.inputText = '';
+    this.isTyping = false;
+
+    if (this.isOpen) {
+      this.scrollToBottomSoon();
+    }
+  }
+
+  private getAuthSnapshot(): string {
+    const email = localStorage.getItem('email') || '';
+    const role = localStorage.getItem('role') || '';
+    const token = localStorage.getItem('token') || '';
+
+    return `${email}|${role}|${token}`;
   }
 
   private scrollToBottomSoon(): void {

@@ -197,6 +197,68 @@
           <li *ngFor="let signal of strategicSignals">{{ signal }}</li>
         </ul>
       </article>
+
+      <article class="panel patterns-panel panel-wide">
+        <div class="panel-header-row">
+          <div>
+            <p class="panel-kicker">Guest behavior</p>
+            <h3>Booking and stay patterns</h3>
+          </div>
+          <p class="panel-subtitle">Calculated dynamically from reservation check-ins and lengths of stay.</p>
+        </div>
+
+        <div class="patterns-grid">
+          <div class="pattern-block">
+            <h4>Check-in day volume</h4>
+            <div class="days-chart">
+              <div class="day-col" *ngFor="let d of checkInDays">
+                <span class="day-count" [style.opacity]="d.count ? 1 : 0">{{ d.count }}</span>
+                <div class="day-bar-wrap">
+                  <div class="day-bar" [style.height.%]="d.percent" [class.peak]="d.fullName === peakCheckInDay"></div>
+                </div>
+                <span class="day-label" [class.peak-text]="d.fullName === peakCheckInDay">{{ d.day }}</span>
+              </div>
+            </div>
+            <p class="pattern-note" *ngIf="peakCheckInDay !== 'N/A'">
+              <strong>{{ peakCheckInDay }}</strong> sees the most arrivals.
+            </p>
+          </div>
+
+          <div class="pattern-block">
+            <h4>Length of stay distribution</h4>
+            
+            <div class="duration-item">
+              <div class="duration-label">
+                <span>Short stay <small>(1-2 nights)</small></span>
+                <span>{{ stayDurationProfile.short.count }} {{ stayDurationProfile.short.count === 1 ? 'booking' : 'bookings' }}</span>
+              </div>
+              <div class="duration-track">
+                <div class="duration-fill short-fill" [style.width.%]="stayDurationProfile.short.percent"></div>
+              </div>
+            </div>
+
+            <div class="duration-item">
+              <div class="duration-label">
+                <span>Medium stay <small>(3-4 nights)</small></span>
+                <span>{{ stayDurationProfile.medium.count }} {{ stayDurationProfile.medium.count === 1 ? 'booking' : 'bookings' }}</span>
+              </div>
+              <div class="duration-track">
+                <div class="duration-fill mid-fill" [style.width.%]="stayDurationProfile.medium.percent"></div>
+              </div>
+            </div>
+
+            <div class="duration-item">
+              <div class="duration-label">
+                <span>Extended stay <small>(5+ nights)</small></span>
+                <span>{{ stayDurationProfile.long.count }} {{ stayDurationProfile.long.count === 1 ? 'booking' : 'bookings' }}</span>
+              </div>
+              <div class="duration-track">
+                <div class="duration-fill long-fill" [style.width.%]="stayDurationProfile.long.percent"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
     </section>
   </ng-container>
 </div>

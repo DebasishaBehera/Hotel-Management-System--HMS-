@@ -45,30 +45,82 @@
 
         <form #bookingForm="ngForm" (ngSubmit)="bookRoom(bookingForm)">
           <div class="date-grid">
-            <div class="field-group">
+            <div class="field-group date-picker-wrap" (click)="$event.stopPropagation()">
               <label>Check-in Date</label>
-              <input
-                type="date"
-                [(ngModel)]="booking.checkInDate"
-                name="checkInDate"
-                #checkIn="ngModel"
-                [min]="today"
-                (ngModelChange)="onCheckInChange()"
-                required
-              />
+              <button type="button" class="date-display" (click)="openDatePicker('checkInDate', $event)">
+                {{ formatDateDisplay(booking.checkInDate) || 'dd - mm - yyyy' }}
+              </button>
+
+              <div class="calendar-popover" *ngIf="activeDateField === 'checkInDate'">
+                <div class="calendar-head">
+                  <strong>{{ calendarMonthLabel }}</strong>
+                  <div>
+                    <button type="button" (click)="navigateMonth(-1, $event)">&#8249;</button>
+                    <button type="button" (click)="navigateMonth(1, $event)">&#8250;</button>
+                  </div>
+                </div>
+
+                <div class="calendar-weekdays">
+                  <span *ngFor="let weekday of weekDayLabels">{{ weekday }}</span>
+                </div>
+
+                <div class="calendar-days">
+                  <ng-container *ngFor="let day of calendarDays">
+                    <span *ngIf="!day" class="calendar-empty"></span>
+                    <button
+                      *ngIf="day"
+                      type="button"
+                      class="calendar-day"
+                      [class.booked]="isDateBooked(day)"
+                      [class.selected]="isDateSelected(day)"
+                      [class.disabled]="isDateDisabled(day, 'checkInDate')"
+                      [disabled]="isDateDisabled(day, 'checkInDate')"
+                      (click)="selectDate(day, $event)"
+                    >
+                      {{ day.getDate() }}
+                    </button>
+                  </ng-container>
+                </div>
+              </div>
             </div>
 
-            <div class="field-group">
+            <div class="field-group date-picker-wrap" (click)="$event.stopPropagation()">
               <label>Check-out Date</label>
-              <input
-                type="date"
-                [(ngModel)]="booking.checkOutDate"
-                name="checkOutDate"
-                #checkOut="ngModel"
-                [min]="minCheckoutDate"
-                (ngModelChange)="onCheckOutChange()"
-                required
-              />
+              <button type="button" class="date-display" (click)="openDatePicker('checkOutDate', $event)">
+                {{ formatDateDisplay(booking.checkOutDate) || 'dd - mm - yyyy' }}
+              </button>
+
+              <div class="calendar-popover" *ngIf="activeDateField === 'checkOutDate'">
+                <div class="calendar-head">
+                  <strong>{{ calendarMonthLabel }}</strong>
+                  <div>
+                    <button type="button" (click)="navigateMonth(-1, $event)">&#8249;</button>
+                    <button type="button" (click)="navigateMonth(1, $event)">&#8250;</button>
+                  </div>
+                </div>
+
+                <div class="calendar-weekdays">
+                  <span *ngFor="let weekday of weekDayLabels">{{ weekday }}</span>
+                </div>
+
+                <div class="calendar-days">
+                  <ng-container *ngFor="let day of calendarDays">
+                    <span *ngIf="!day" class="calendar-empty"></span>
+                    <button
+                      *ngIf="day"
+                      type="button"
+                      class="calendar-day"
+                      [class.booked]="isDateBooked(day)"
+                      [class.selected]="isDateSelected(day)"
+                      [class.disabled]="isDateDisabled(day, 'checkOutDate')"
+                      [disabled]="isDateDisabled(day, 'checkOutDate')"
+                      (click)="selectDate(day, $event)"
+                    >
+                      {{ day.getDate() }}
+                    </button>
+                  </ng-container>
+                </div>
+              </div>
             </div>
           </div>
 

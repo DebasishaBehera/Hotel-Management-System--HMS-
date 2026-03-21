@@ -18,28 +18,82 @@
         </div>
 
         <div class="form-grid">
-          <div class="form-row">
+          <div class="form-row date-picker-wrap" (click)="$event.stopPropagation()">
             <label>Check-in date</label>
-            <input
-              type="date"
-              [(ngModel)]="form.checkInDate"
-              name="checkInDate"
-              [min]="today"
-              (ngModelChange)="onCheckInDateChange()"
-              required
-            />
+            <button type="button" class="date-display" (click)="openDatePicker('checkInDate', $event)">
+              {{ formatDateDisplay(form.checkInDate) || 'dd - mm - yyyy' }}
+            </button>
+
+            <div class="calendar-popover" *ngIf="activeDateField === 'checkInDate'">
+              <div class="calendar-head">
+                <strong>{{ calendarMonthLabel }}</strong>
+                <div>
+                  <button type="button" (click)="navigateMonth(-1, $event)">&#8249;</button>
+                  <button type="button" (click)="navigateMonth(1, $event)">&#8250;</button>
+                </div>
+              </div>
+
+              <div class="calendar-weekdays">
+                <span *ngFor="let weekday of weekDayLabels">{{ weekday }}</span>
+              </div>
+
+              <div class="calendar-days">
+                <ng-container *ngFor="let day of calendarDays">
+                  <span *ngIf="!day" class="calendar-empty"></span>
+                  <button
+                    *ngIf="day"
+                    type="button"
+                    class="calendar-day"
+                    [class.booked]="isDateBooked(day)"
+                    [class.selected]="isDateSelected(day)"
+                    [class.disabled]="isDateDisabled(day, 'checkInDate')"
+                    [disabled]="isDateDisabled(day, 'checkInDate')"
+                    (click)="selectDate(day, $event)"
+                  >
+                    {{ day.getDate() }}
+                  </button>
+                </ng-container>
+              </div>
+            </div>
           </div>
 
-          <div class="form-row">
+          <div class="form-row date-picker-wrap" (click)="$event.stopPropagation()">
             <label>Check-out date</label>
-            <input
-              type="date"
-              [(ngModel)]="form.checkOutDate"
-              name="checkOutDate"
-              [min]="minCheckOutDate"
-              (ngModelChange)="onCheckOutDateChange()"
-              required
-            />
+            <button type="button" class="date-display" (click)="openDatePicker('checkOutDate', $event)">
+              {{ formatDateDisplay(form.checkOutDate) || 'dd - mm - yyyy' }}
+            </button>
+
+            <div class="calendar-popover" *ngIf="activeDateField === 'checkOutDate'">
+              <div class="calendar-head">
+                <strong>{{ calendarMonthLabel }}</strong>
+                <div>
+                  <button type="button" (click)="navigateMonth(-1, $event)">&#8249;</button>
+                  <button type="button" (click)="navigateMonth(1, $event)">&#8250;</button>
+                </div>
+              </div>
+
+              <div class="calendar-weekdays">
+                <span *ngFor="let weekday of weekDayLabels">{{ weekday }}</span>
+              </div>
+
+              <div class="calendar-days">
+                <ng-container *ngFor="let day of calendarDays">
+                  <span *ngIf="!day" class="calendar-empty"></span>
+                  <button
+                    *ngIf="day"
+                    type="button"
+                    class="calendar-day"
+                    [class.booked]="isDateBooked(day)"
+                    [class.selected]="isDateSelected(day)"
+                    [class.disabled]="isDateDisabled(day, 'checkOutDate')"
+                    [disabled]="isDateDisabled(day, 'checkOutDate')"
+                    (click)="selectDate(day, $event)"
+                  >
+                    {{ day.getDate() }}
+                  </button>
+                </ng-container>
+              </div>
+            </div>
           </div>
         </div>
 

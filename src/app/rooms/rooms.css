@@ -345,6 +345,7 @@
   color: #5f7388;
   font-size: 0.9rem;
   min-height: 80px;
+  text-align: justify;
   margin: 0 0 12px;
   line-height: 1.55;
 }

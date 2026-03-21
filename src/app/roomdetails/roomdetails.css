@@ -170,6 +170,124 @@
   min-width: 0;
 }
 
+.date-picker-wrap {
+  position: relative;
+}
+
+.date-display {
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid #cfdcf0;
+  border-radius: 16px;
+  font-size: 0.95rem;
+  text-align: left;
+  color: #0a2f52;
+  background: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.date-display:hover,
+.date-display:focus-visible {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.16);
+}
+
+.calendar-popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 30;
+  width: min(320px, 100%);
+  padding: 12px;
+  border: 1px solid #cfdcf0;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 18px 34px rgba(15, 76, 129, 0.2);
+}
+
+.calendar-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.calendar-head strong {
+  font-size: 0.9rem;
+  color: #0b2f53;
+}
+
+.calendar-head div {
+  display: flex;
+  gap: 6px;
+}
+
+.calendar-head button {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #d9e3ee;
+  border-radius: 8px;
+  background: #f8fbff;
+  color: #0d5ea2;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.calendar-weekdays,
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.calendar-weekdays {
+  margin-bottom: 6px;
+}
+
+.calendar-weekdays span {
+  text-align: center;
+  color: #70859b;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.calendar-empty {
+  height: 34px;
+}
+
+.calendar-day {
+  height: 34px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #0c355a;
+  cursor: pointer;
+  font-size: 0.84rem;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+
+.calendar-day:hover {
+  background: #edf5ff;
+  border-color: #bcd5ef;
+}
+
+.calendar-day.selected {
+  background: #0b84f3;
+  color: #ffffff;
+}
+
+.calendar-day.booked,
+.calendar-day.disabled {
+  background: #edf1f6;
+  color: #9aa8b7;
+  border-color: #e1e7ef;
+  cursor: not-allowed;
+}
+
 .field-group label {
   margin-bottom: 6px;
   color: #003566;
