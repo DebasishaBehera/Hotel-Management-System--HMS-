@@ -4,11 +4,47 @@
 }
 
 .booking-edit-shell {
-  max-width: 760px;
+  position: relative;
+  overflow: hidden;
+  max-width: 1250px;
   margin: 0 auto;
+  padding: 2rem;
+  border-radius: 24px;
+  border: 1px solid rgba(19, 82, 130, 0.14);
+  background:
+    radial-gradient(circle at 10% 0%, rgba(255, 229, 191, 0.3), transparent 36%),
+    radial-gradient(circle at 100% 8%, rgba(176, 228, 255, 0.3), transparent 42%),
+    linear-gradient(160deg, #f4f9ff 0%, #f6fbff 32%, #eef5fc 100%);
+  box-shadow: 0 26px 70px rgba(15, 76, 129, 0.12);
+}
+
+.booking-edit-shell::before,
+.booking-edit-shell::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.booking-edit-shell::before {
+  width: 240px;
+  height: 240px;
+  top: -100px;
+  right: -60px;
+  background: radial-gradient(circle at 34% 30%, rgba(255, 204, 112, 0.38), rgba(255, 204, 112, 0));
+}
+
+.booking-edit-shell::after {
+  width: 210px;
+  height: 210px;
+  left: -80px;
+  bottom: -90px;
+  background: radial-gradient(circle at 60% 65%, rgba(47, 151, 189, 0.2), rgba(47, 151, 189, 0));
 }
 
 .back-link {
+  position: relative;
+  z-index: 1;
   display: inline-block;
   margin-bottom: 18px;
   color: #13304b;
@@ -17,21 +53,40 @@
 }
 
 .edit-card {
+  position: relative;
+  z-index: 1;
   padding: 30px;
   border-radius: 28px;
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, 0.94);
   border: 1px solid rgba(19, 48, 75, 0.08);
   box-shadow: 0 20px 46px rgba(19, 48, 75, 0.1);
+}
+
+.edit-hero {
+  max-width: 760px;
+  margin: 0 auto 6px;
+  text-align: center;
+}
+
+.page-kicker {
+  margin: 0 0 0.45rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #9a5d2b;
 }
 
 .edit-card h2 {
   margin: 0;
   color: #13304b;
+  text-align: center;
 }
 
 .subtitle {
   margin: 10px 0 24px;
   color: #52657b;
+  text-align: center;
 }
 
 .state-message {
@@ -110,6 +165,11 @@
 }
 
 @media (max-width: 640px) {
+  .booking-edit-shell {
+    padding: 1.2rem;
+    border-radius: 18px;
+  }
+
   .edit-card {
     padding: 24px;
   }

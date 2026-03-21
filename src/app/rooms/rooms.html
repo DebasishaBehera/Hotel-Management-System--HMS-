@@ -1,7 +1,18 @@
 <div class="rooms-container">
-  <p class="page-label">Stay planner</p>
-  <h2>Available Rooms</h2>
-  <p class="rooms-subtitle">Search by date, narrow the list instantly, and compare room options before booking.</p>
+  <div class="rooms-ambient rooms-ambient-one" aria-hidden="true"></div>
+  <div class="rooms-ambient rooms-ambient-two" aria-hidden="true"></div>
+
+  <header class="rooms-hero">
+    <div>
+      <p class="page-label">Stay planner</p>
+      <h2>Available Rooms</h2>
+      <p class="rooms-subtitle">Search by date, narrow the list instantly, and compare room options before booking.</p>
+    </div>
+    <div class="hero-badges" aria-label="Listing status">
+      <span>Instant filters</span>
+      <span>Live inventory</span>
+    </div>
+  </header>
 
   <div class="control-bar" *ngIf="!loading || rooms.length">
     <div class="control-field search-field">
@@ -56,7 +67,15 @@
   <div *ngIf="error" class="error">{{ error }}</div>
 
   <div class="room-grid" *ngIf="!loading && displayedRooms.length > 0">
-    <div class="room-card" *ngFor="let room of displayedRooms">
+    <div
+      class="room-card"
+      *ngFor="let room of displayedRooms"
+      role="button"
+      tabindex="0"
+      (click)="openRoomBooking(room)"
+      (keydown.enter)="openRoomBooking(room)"
+      (keydown.space)="openRoomBooking(room); $event.preventDefault()"
+    >
       <div class="room-media">
         <img [src]="room.imageUrl || room.image_url || 'assets/default-room.jpg'" alt="Room image" />
         <span class="room-badge" *ngIf="room.type">{{ room.type }}</span>
@@ -70,7 +89,7 @@
             <span class="price-label">Starting from</span>
             <div class="price">₹{{ getRoomPrice(room) }} / night</div>
           </div>
-          <button class="book-btn" [routerLink]="['/rooms', room.id]">Book Now</button>
+          <button class="book-btn" type="button" (click)="openRoomBooking(room); $event.stopPropagation()">Book Now</button>
         </div>
       </div>
 

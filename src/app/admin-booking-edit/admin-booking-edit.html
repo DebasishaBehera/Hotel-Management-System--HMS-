@@ -1,6 +1,18 @@
-<div class="admin-container">
-  <h2>Edit Booking</h2>
-  <p class="subtitle">Update the details for this booking.</p>
+<div class="admin-container admin-edit-shell">
+  <div class="edit-ambient edit-ambient-one" aria-hidden="true"></div>
+  <div class="edit-ambient edit-ambient-two" aria-hidden="true"></div>
+
+  <header class="edit-hero">
+    <div>
+      <p class="page-kicker">Reservations Desk</p>
+      <h2>Edit Booking</h2>
+      <p class="subtitle">Update the details for this booking.</p>
+    </div>
+    <div class="edit-hero-meta" aria-label="Edit status">
+      <span>Admin edit</span>
+      <span>Live validation</span>
+    </div>
+  </header>
 
   <form (ngSubmit)="updateBooking()" class="room-form" *ngIf="!loading; else loadingTpl">
     <div class="form-row">

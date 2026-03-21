@@ -32,6 +32,7 @@
   margin: 0;
   color: #c06e2f;
   text-transform: uppercase;
+  text-align: center;
   letter-spacing: 0.1em;
   font-size: 0.72rem;
   font-weight: 700;
@@ -66,6 +67,7 @@
 
 .auth-container input {
   width: 100%;
+  box-sizing: border-box;
   padding: 12px 14px;
   border-radius: 10px;
   border: 1px solid var(--border);
@@ -87,9 +89,11 @@
 
 .password-field {
   position: relative;
+  width: 100%;
 }
 
 .password-field input {
+  display: block;
   padding-right: 76px;
 }
 

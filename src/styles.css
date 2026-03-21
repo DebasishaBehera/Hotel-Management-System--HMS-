@@ -8,9 +8,9 @@ html, body {
 }
 
 /* Consistent sizing */
-*, *::before, *::after {
+/* *, *::before, *::after {
 	box-sizing: border-box;
-}
+} */
 
 /* Full-height layout so footer stays at bottom */
 app-root {

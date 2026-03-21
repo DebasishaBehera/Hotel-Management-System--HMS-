@@ -3,8 +3,11 @@
     <a routerLink="/my-bookings" class="back-link">Back to my bookings</a>
 
     <div class="edit-card">
-      <h2>Edit booking</h2>
-      <p class="subtitle">Change your stay dates or update the number of guests for this reservation.</p>
+      <header class="edit-hero">
+        <p class="page-kicker">User panel</p>
+        <h2>Edit booking</h2>
+        <p class="subtitle">Change your stay dates or update the number of guests for this reservation.</p>
+      </header>
 
       <div *ngIf="loading" class="state-message">Loading booking...</div>
 

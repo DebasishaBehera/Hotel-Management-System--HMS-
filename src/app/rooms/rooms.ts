@@ -172,4 +172,12 @@ export class RoomsComponent implements OnInit {
   getRoomPrice(room: Room): number {
     return Number(room.pricePerNight || room.price || 0);
   }
+
+  openRoomBooking(room: Room): void {
+    if (room?.id === undefined || room?.id === null) {
+      return;
+    }
+
+    this.router.navigate(['/rooms', room.id]);
+  }
 }

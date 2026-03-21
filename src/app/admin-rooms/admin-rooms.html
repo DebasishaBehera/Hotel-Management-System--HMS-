@@ -1,7 +1,18 @@
-<div class="admin-container admin-rooms-shell" style="max-width: 1400px">
-  <p class="page-label">Inventory desk</p>
-  <h2>All Rooms</h2>
-  <p class="subtitle">Search, sort, and manage room inventory without leaving this page.</p>
+<div class="admin-container admin-rooms-shell admin-data-shell" style="max-width: 1450px">
+  <div class="admin-shell-ambient admin-shell-ambient-one" aria-hidden="true"></div>
+  <div class="admin-shell-ambient admin-shell-ambient-two" aria-hidden="true"></div>
+
+  <header class="admin-shell-header">
+    <div>
+      <p class="page-label">Inventory desk</p>
+      <h2>All Rooms</h2>
+      <p class="subtitle">Search, sort, and manage room inventory without leaving this page.</p>
+    </div>
+    <div class="header-badges" aria-label="Inventory panel status">
+      <span>Auto sorted</span>
+      <span>Quick actions</span>
+    </div>
+  </header>
 
   <div class="overview-grid room-overview" *ngIf="!loadingRooms && rooms.length">
     <div class="overview-card">

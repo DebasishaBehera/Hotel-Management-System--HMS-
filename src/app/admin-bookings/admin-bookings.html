@@ -1,7 +1,18 @@
-<div class="admin-container admin-bookings-shell" style="max-width: 1200px">
-  <p class="page-label">Reservations desk</p>
-  <h2>Room Bookings</h2>
-  <p class="subtitle">Search, review, edit, and cancel bookings from one place.</p>
+<div class="admin-container admin-bookings-shell admin-data-shell" style="max-width: 1450px">
+  <div class="admin-shell-ambient admin-shell-ambient-one" aria-hidden="true"></div>
+  <div class="admin-shell-ambient admin-shell-ambient-two" aria-hidden="true"></div>
+
+  <header class="admin-shell-header">
+    <div>
+      <p class="page-label">Reservations desk</p>
+      <h2>Room Bookings</h2>
+      <p class="subtitle">Search, review, edit, and cancel bookings from one place.</p>
+    </div>
+    <div class="header-badges" aria-label="Booking panel status">
+      <span>Live filters</span>
+      <span>Admin only</span>
+    </div>
+  </header>
 
   <div class="overview-grid" *ngIf="!loadingBookings && bookings.length">
     <div class="overview-card">

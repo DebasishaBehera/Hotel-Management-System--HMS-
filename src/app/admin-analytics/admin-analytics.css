@@ -1,11 +1,37 @@
 .analytics-shell {
-  max-width: 1450px;
+  position: relative;
+  overflow: hidden;
+  max-width: 1350px;
   background:
     radial-gradient(circle at top left, rgba(255, 246, 240, 0.96), rgba(252, 254, 255, 0.9) 42%),
     linear-gradient(135deg, rgba(255, 122, 89, 0.08), rgba(16, 185, 129, 0.08));
 }
 
+.analytics-ambient {
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.analytics-ambient-one {
+  width: 250px;
+  height: 250px;
+  top: -110px;
+  right: -70px;
+  background: radial-gradient(circle at 34% 34%, rgba(255, 184, 102, 0.38), rgba(255, 184, 102, 0));
+}
+
+.analytics-ambient-two {
+  width: 230px;
+  height: 230px;
+  left: -80px;
+  bottom: -100px;
+  background: radial-gradient(circle at 58% 62%, rgba(45, 180, 138, 0.2), rgba(45, 180, 138, 0));
+}
+
 .analytics-hero {
+  position: relative;
+  z-index: 1;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -47,12 +73,19 @@
   text-decoration: none;
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(154, 52, 18, 0.12);
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.hero-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(154, 52, 18, 0.16);
 }
 
 .hero-chip {
   background: linear-gradient(135deg, rgba(255, 122, 89, 0.14), rgba(14, 165, 233, 0.14));
   color: #7c2d12;
   border: 1px solid rgba(255, 122, 89, 0.16);
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.08);
 }
 
 .loading-state,
@@ -64,6 +97,8 @@
 }
 
 .metric-grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
@@ -76,6 +111,12 @@
   background: rgba(255, 255, 255, 0.88);
   border: 1px solid rgba(15, 23, 42, 0.06);
   box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 52px rgba(15, 23, 42, 0.12);
 }
 
 .metric-card.warm {
@@ -123,6 +164,8 @@
 }
 
 .analytics-grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 1rem;
