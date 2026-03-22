@@ -6,8 +6,11 @@ import { Observable, map } from 'rxjs';
 export class ImageUploadService {
   // TODO: Replace with your actual Cloudinary details
   
-  private readonly cloudName = 'Your_Cloud_Name';
-  private readonly uploadPreset = 'Your_Upload_Preset';
+  // private readonly cloudName = 'Your_Cloud_Name';
+  // private readonly uploadPreset = 'Your_Upload_Preset';
+
+  private readonly cloudName = 'dkjewtv6d';
+  private readonly uploadPreset = 'room_images';
 
 
 
