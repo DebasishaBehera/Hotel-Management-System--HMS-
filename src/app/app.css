@@ -5,7 +5,7 @@
   z-index: 9999;
   display: grid;
   place-items: center;
-  background: #212121;
+  background: linear-gradient(120deg, #000c59 0%, #000000 55%, #451212 100%);
   opacity: 1;
   visibility: visible;
   transition: opacity 0.65s ease, visibility 0.65s ease;
@@ -2983,19 +2983,19 @@
   0% {
     transform: translateY(0);
     opacity: 0.4;
-    color: #dbe6f1;
+    color: burlywood;
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
   }
   45% {
     transform: translateY(-2px);
     opacity: 1;
-    color: #ffffff;
+    color: beige;
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 26px rgba(124, 224, 255, 0.34);
   }
   100% {
     transform: translateY(0);
     opacity: 0.5;
-    color: #dbe6f1;
+    color: bisque;
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.14);
   }
 }

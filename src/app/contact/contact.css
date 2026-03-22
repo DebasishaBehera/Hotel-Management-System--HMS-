@@ -5,7 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: radial-gradient(circle at top left, #7554b2, #0e1c2f 50%, #1b2965);
+  background: linear-gradient(359deg, #300000 0%, #000000 55%, #000954 100%);
   font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 
